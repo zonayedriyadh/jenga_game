@@ -22,6 +22,7 @@ public class JengaStackBuilder : MonoBehaviour
     private Grade gradeNumber;
     public GameObject blockPrefab;
 
+    public Vector3 middlePoint;
     private Block listOfBlocks;
     private int wholeBlockNumber;
 
@@ -93,6 +94,8 @@ public class JengaStackBuilder : MonoBehaviour
 
             currentBoxCreated++;
         }
+
+        middlePoint = new Vector3(transform.position.x,currentHeight / 2, transform.position.z);
     }
     // Update is called once per frame
     void Update()
