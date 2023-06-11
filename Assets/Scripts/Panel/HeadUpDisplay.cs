@@ -1,4 +1,4 @@
-using Modules;
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -57,7 +57,7 @@ public class HeadUpDisplay : MonoBehaviour
     {
         text_GradeLevel.text = "Grade Level: "+courseItem.domain;
         text_Cluster.text = "Cluster: " + courseItem.cluster;
-        text_StandardId.text = "Standard: " + courseItem.standardid;
+        text_StandardId.text = "Standard: " + courseItem.standarddescription;
     }
 
     public void OnCickSetGrade(Grade grade)

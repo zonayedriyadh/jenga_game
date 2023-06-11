@@ -14,7 +14,7 @@ public class Block : MonoBehaviour
     [SerializeField] Material woodMetarial;
     [SerializeField] Material stoneMetarial;
 
-    private BlockType blockType;
+    //private BlockType blockType;
     private CourseItem courseItem;
 
     public CourseItem _CourseItem { get => courseItem; set => courseItem = value; }
@@ -36,17 +36,17 @@ public class Block : MonoBehaviour
         if (_courseItem.mastery == 0)
         {
             GetComponent<MeshRenderer>().material = glassMetarial;
-            blockType = BlockType.Glass;
+            //blockType = BlockType.Glass;
         }
         else if(_courseItem.mastery == 1)
         {
             GetComponent<MeshRenderer>().material = woodMetarial;
-            blockType = BlockType.Wood;
+            //blockType = BlockType.Wood;
         }
         else
         {
             GetComponent<MeshRenderer>().material = stoneMetarial;
-            blockType = BlockType.Stone;
+            //blockType = BlockType.Stone;
         }
     }
 

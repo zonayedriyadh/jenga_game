@@ -247,9 +247,9 @@ public class GameManager : MonoBehaviour
     {
         if(currentGradeSelected == Grade.none)
         {
-            getGrade(Grade.grade6).RemoveGlassBlock();
+            /*getGrade(Grade.grade6).RemoveGlassBlock();
             getGrade(Grade.grade7).RemoveGlassBlock();
-            getGrade(Grade.grade8).RemoveGlassBlock();
+            getGrade(Grade.grade8).RemoveGlassBlock();*/
         }
         else
             getGrade(currentGradeSelected).RemoveGlassBlock();
