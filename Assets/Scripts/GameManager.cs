@@ -85,15 +85,16 @@ public class GameManager : MonoBehaviour
                 mouseDeltaPosition = (currentMousePosition - lastMousePosition) * -1;
 
 
-                gameCamera.transform.RotateAround(_stackBuilder7th.middlePoint, new Vector3(0, -7.5f, 0), mouseDeltaPosition.x * cameraRotateeSpeed * Time.deltaTime);
+                gameCamera.transform.RotateAround(_stackBuilder7th.middlePoint, new Vector3(0, -9.5f, 0), mouseDeltaPosition.x * cameraRotateeSpeed * Time.deltaTime);
                 //Debug.Log(" "+ mouseDeltaPosition.x);
-                //Quaternion lookRoation = Quaternion.LookRotation(geNearest().middlePoint, gameCamera.transform.position);
+                //Quaternion lookRoation = Quaternion.LookRotation(getNearest().middlePoint, gameCamera.transform.position);
                 //gameCamera.transform.rotation = Quaternion.Slerp(gameCamera.transform.rotation, lookRoation, cameraRotateeSpeed * Time.deltaTime);
                 gameCamera.transform.LookAt(_stackBuilder7th.middlePoint);
 
-                /*Vector3 direction = geNearest().middlePoint - gameCamera.transform.position;
+                /*Vector3 direction = getNearest().middlePoint - gameCamera.transform.position;
+                Debug.Log(direction);
                 Quaternion toRotation = Quaternion.FromToRotation(gameCamera.transform.forward, direction);
-                gameCamera.transform.rotation = Quaternion.Lerp(gameCamera.transform.rotation, toRotation, 0.005f * Time.time);*/
+                gameCamera.transform.rotation = Quaternion.Lerp(gameCamera.transform.rotation, toRotation, 0.0005f * Time.time);*/
                 lastMousePosition = currentMousePosition;
             }
         }
@@ -129,7 +130,6 @@ public class GameManager : MonoBehaviour
 
     public void SetSelectedColor(Grade grade,GameObject currentBlock = null)
     {
-        Debug.Log("materials ");
         switch (grade)
         {
             case Grade.grade6:
@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
         SetCamera();
     }
 
-    public JengaStackBuilder geNearest()
+    public JengaStackBuilder getNearest()
     {
         float distanceSix = Vector3.Distance(gameCamera.transform.position, _stackBuilder6th.transform.position);
         float distanceSeven = Vector3.Distance(gameCamera.transform.position, _stackBuilder7th.transform.position);
@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            gameCamera.transform.position = _stackBuilder7th.transform.position + new Vector3(0, 1.5f, -4.5f);
+            gameCamera.transform.position = _stackBuilder7th.transform.position + new Vector3(0, 1.5f, -5.5f);
             gameCamera.transform.LookAt(_stackBuilder7th.middlePoint);
 
             _stackBuilder6th.gameObject.SetActive(true);

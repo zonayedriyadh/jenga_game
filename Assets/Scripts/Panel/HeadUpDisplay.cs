@@ -38,7 +38,6 @@ public class HeadUpDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("AddListener Called");
         btn6thGrade.onClick.AddListener(()=>OnCickSetGrade(Grade.grade6));
         btn7thGrade.onClick.AddListener(() => OnCickSetGrade(Grade.grade7));
         btn8thGrade.onClick.AddListener(() => OnCickSetGrade(Grade.grade8));
