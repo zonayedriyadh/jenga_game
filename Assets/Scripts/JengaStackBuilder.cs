@@ -27,6 +27,8 @@ public class JengaStackBuilder : MonoBehaviour
     private int wholeBlockNumber;
     private Vector3 initialPos;
     public List<GameObject> listOfBlocks;
+
+    private bool isScoreTested;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,7 @@ public class JengaStackBuilder : MonoBehaviour
     }
     public void Initialize(Grade gradedNo)
     {
+        isScoreTested = false;
         initialPos = transform.position;
         gradeNumber = gradedNo;
         buildstack();
@@ -65,7 +68,7 @@ public class JengaStackBuilder : MonoBehaviour
         {
             if (currentBoxCreated % 3 == 0 && currentBoxCreated != 0)
             {
-                currentHeight += 0.1f;
+                currentHeight += 0.098f;
                 currentDirection = currentDirection == Direction.straight ? Direction.nintyDegree : Direction.straight;
             }
 
@@ -107,16 +110,36 @@ public class JengaStackBuilder : MonoBehaviour
 
     public void RemoveGlassBlock()
     {
-        foreach(GameObject block in listOfBlocks)
+        if(!isScoreTested)
         {
-            if(block.GetComponent<Block>()._CourseItem.mastery == 0)
+            isScoreTested = true;
+            foreach (GameObject block in listOfBlocks)
             {
-                block.gameObject.SetActive(false);
+                if (block.GetComponent<Block>()._CourseItem.mastery == 0)
+                {
+                    block.gameObject.SetActive(false);
+                }
+                else
+                {
+                    block.GetComponent<Rigidbody>().useGravity = true;
+                    block.GetComponent<Rigidbody>().isKinematic = false;
+                }
             }
-            else
+        }
+    }
+    public void Rebuild()
+    {
+        if(isScoreTested)
+        {
+            isScoreTested = false;
+            foreach (GameObject block in listOfBlocks)
             {
-                block.GetComponent<Rigidbody>().useGravity = true;
-                block.GetComponent<Rigidbody>().isKinematic = false;
+                block.transform.position = block.GetComponent<Block>().initialPos;
+                block.transform.eulerAngles = block.GetComponent<Block>().initialAngle;
+                block.gameObject.SetActive(true);   
+                block.GetComponent<Rigidbody>().useGravity = false;
+                block.GetComponent<Rigidbody>().isKinematic = true;
+                
             }
         }
     }

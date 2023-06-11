@@ -202,4 +202,11 @@ public class GameManager : MonoBehaviour
         getGrade(currentGradeSelected).RemoveGlassBlock();
     }
 
+    public void RebuildStacks()
+    {
+        _stackBuilder6th.Rebuild();
+        _stackBuilder7th.Rebuild();
+        _stackBuilder8th.Rebuild();
+    }
+
 }

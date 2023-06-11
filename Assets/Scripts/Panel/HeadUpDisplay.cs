@@ -76,4 +76,10 @@ public class HeadUpDisplay : MonoBehaviour
     {
         GameManager.Instance.RemoveGlasssBlock();
     }
+
+    public void OnCLickRebuild()
+    {
+        GameManager.Instance.DeselectAllBlock();
+        GameManager.Instance.RebuildStacks();
+    }
 }

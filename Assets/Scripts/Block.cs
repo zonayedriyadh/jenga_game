@@ -19,9 +19,13 @@ public class Block : MonoBehaviour
 
     public CourseItem _CourseItem { get => courseItem; set => courseItem = value; }
     public Color orginalColor;
+    public Vector3 initialPos;
+    public Vector3 initialAngle;
     // Start is called before the first frame update
     void Start()
     {
+        initialPos = transform.position;
+        initialAngle = transform.eulerAngles;
         orginalColor = GetComponent<MeshRenderer>().material.color;
     }
 
