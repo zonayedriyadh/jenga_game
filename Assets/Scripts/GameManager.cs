@@ -119,18 +119,14 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject block in stack.listOfBlocks)
         {
-            
-                if (block == currentBlock)
-                {
-                    Debug.Log("materials ");
-                    block.GetComponent<MeshRenderer>().material.color = Color.red;
-                }
-                else
-                {
-                    block.GetComponent<MeshRenderer>().material.color = block.GetComponent<Block>().orginalColor;
-                    Debug.Log("Orginal Mat");
-                }
-            
+            if (block == currentBlock)
+            {
+                block.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            else
+            {
+                block.GetComponent<MeshRenderer>().material.color = block.GetComponent<Block>().orginalColor;
+            }
         }
     }
 

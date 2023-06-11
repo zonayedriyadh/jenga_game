@@ -128,6 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glassMetarial: {fileID: 2100000, guid: de6b826796086e44f898fde9bfc858af, type: 2}
-  woodMetarial: {fileID: 2100000, guid: b5198f8af2f2fb74d81edc8ca9d255ce, type: 2}
-  stoneMetarial: {fileID: 2100000, guid: bbb823d717bf5b8419eb0811b16c1d7f, type: 2}
+  woodMetarial: {fileID: 2100000, guid: 4fc633e8098c6914eb27d51c399ed7d1, type: 2}
+  stoneMetarial: {fileID: 2100000, guid: dfe2b8e7807cf5649b40118696133b60, type: 2}
   orginalColor: {r: 0, g: 0, b: 0, a: 0}
+  initialPos: {x: 0, y: 0, z: 0}
+  initialAngle: {x: 0, y: 0, z: 0}
