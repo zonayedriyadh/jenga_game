@@ -16,11 +16,13 @@ public class Block : MonoBehaviour
 
     private BlockType blockType;
     private CourseItem courseItem;
-    
+
+    public CourseItem _CourseItem { get => courseItem; set => courseItem = value; }
+    public Color orginalColor;
     // Start is called before the first frame update
     void Start()
     {
-        
+        orginalColor = GetComponent<MeshRenderer>().material.color;
     }
 
     public void Initialize(CourseItem _courseItem)

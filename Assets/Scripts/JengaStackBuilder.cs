@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum Grade
 {
+    none,
     grade6,
     grade7,
     grade8,
@@ -23,10 +24,9 @@ public class JengaStackBuilder : MonoBehaviour
     public GameObject blockPrefab;
 
     public Vector3 middlePoint;
-    private Block listOfBlocks;
     private int wholeBlockNumber;
-
     private Vector3 initialPos;
+    public List<GameObject> listOfBlocks;
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +92,8 @@ public class JengaStackBuilder : MonoBehaviour
             Block block = currentBox.GetComponent<Block>();
             block.Initialize(listCourseItem[currentBoxCreated]);
 
+
+            listOfBlocks.Add(currentBox);
             currentBoxCreated++;
         }
 
@@ -101,5 +103,21 @@ public class JengaStackBuilder : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void RemoveGlassBlock()
+    {
+        foreach(GameObject block in listOfBlocks)
+        {
+            if(block.GetComponent<Block>()._CourseItem.mastery == 0)
+            {
+                block.gameObject.SetActive(false);
+            }
+            else
+            {
+                block.GetComponent<Rigidbody>().useGravity = true;
+                block.GetComponent<Rigidbody>().isKinematic = false;
+            }
+        }
     }
 }
