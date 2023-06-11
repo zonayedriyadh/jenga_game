@@ -45,7 +45,7 @@ public class HeadUpDisplay : MonoBehaviour
         mainCamera.onClick.AddListener(() => OnCickSetGrade(Grade.none));
 
         btnTestMyScore.onClick.AddListener(OnCLickTestMyScore);
-        btnTestMyScore.interactable = false;
+        //btnTestMyScore.interactable = false;
     }
 
     // Update is called once per frame
@@ -63,10 +63,10 @@ public class HeadUpDisplay : MonoBehaviour
 
     public void OnCickSetGrade(Grade grade)
     {
-        if (grade == Grade.none)
+        /*if (grade == Grade.none)
             btnTestMyScore.interactable = false;
         else
-            btnTestMyScore.interactable = true; 
+            btnTestMyScore.interactable = true; */
 
         GameManager.Instance.DeselectAllBlock();
         GameManager.Instance.SetGrade(grade);

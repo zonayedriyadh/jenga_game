@@ -51,11 +51,11 @@ public class GameManager : MonoBehaviour
     {
         if(currentGradeSelected != Grade.none)
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0))
             {
                 lastMousePosition = Input.mousePosition;
             }
-            else if (Input.GetMouseButton(1))
+            else if (Input.GetMouseButton(0))
             {
 
                 currentMousePosition = Input.mousePosition;
@@ -70,34 +70,67 @@ public class GameManager : MonoBehaviour
                 lastMousePosition = currentMousePosition;
             }
 
-            if(Input.GetMouseButtonDown(0))
+            
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-               //Debug.Log("mouse hit position -> "+ Input.mousePosition);
-                Ray ray  = gameCamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit ;
+                lastMousePosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButton(0))
+            {
 
-                //Debug.DrawRay (ray.origin, ray.direction * 100, Color.yellow);
+                currentMousePosition = Input.mousePosition;
+                mouseDeltaPosition = (currentMousePosition - lastMousePosition) * -1;
 
-                if (Physics.Raycast(ray.origin, ray.direction,out hit))
+
+                gameCamera.transform.RotateAround(_stackBuilder7th.middlePoint, new Vector3(0, -7.5f, 0), mouseDeltaPosition.x * cameraRotateeSpeed * Time.deltaTime);
+                //Debug.Log(" "+ mouseDeltaPosition.x);
+                //Quaternion lookRoation = Quaternion.LookRotation(geNearest().middlePoint, gameCamera.transform.position);
+                //gameCamera.transform.rotation = Quaternion.Slerp(gameCamera.transform.rotation, lookRoation, cameraRotateeSpeed * Time.deltaTime);
+                gameCamera.transform.LookAt(_stackBuilder7th.middlePoint);
+
+                /*Vector3 direction = geNearest().middlePoint - gameCamera.transform.position;
+                Quaternion toRotation = Quaternion.FromToRotation(gameCamera.transform.forward, direction);
+                gameCamera.transform.rotation = Quaternion.Lerp(gameCamera.transform.rotation, toRotation, 0.005f * Time.time);*/
+                lastMousePosition = currentMousePosition;
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            //Debug.Log("mouse hit position -> "+ Input.mousePosition);
+            Ray ray = gameCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            //Debug.DrawRay (ray.origin, ray.direction * 100, Color.yellow);
+
+            if (Physics.Raycast(ray.origin, ray.direction, out hit))
+            {
+                if (hit.collider.tag == "block")
                 {
-                    if (hit.collider.tag == "block")
-                    {
-                        GameObject block = hit.collider.gameObject;
+                    GameObject block = hit.collider.gameObject;
 
-                        SetSelectedColor(block);
-                        HeadUpDisplay.Instance.ShowInformation(block.GetComponent<Block>()._CourseItem);
+                    Grade blockGrade = Grade.grade8;
+                    if (block.GetComponent<Block>()._CourseItem.grade == "6th Grade") blockGrade = Grade.grade6;
+                    else if (block.GetComponent<Block>()._CourseItem.grade == "7th Grade") blockGrade = Grade.grade7;
 
-                    }
+                    SetSelectedColor(Grade.none);
+                    SetSelectedColor(blockGrade, block);
+                    HeadUpDisplay.Instance.ShowInformation(block.GetComponent<Block>()._CourseItem);
+
                 }
             }
         }
-        
     }
 
-    public void SetSelectedColor(GameObject currentBlock = null)
+    
+
+    public void SetSelectedColor(Grade grade,GameObject currentBlock = null)
     {
         Debug.Log("materials ");
-        switch (currentGradeSelected)
+        switch (grade)
         {
             case Grade.grade6:
                 SetColor(_stackBuilder6th, currentBlock);
@@ -134,6 +167,23 @@ public class GameManager : MonoBehaviour
     {
         currentGradeSelected = grade;
         SetCamera();
+    }
+
+    public JengaStackBuilder geNearest()
+    {
+        float distanceSix = Vector3.Distance(gameCamera.transform.position, _stackBuilder6th.transform.position);
+        float distanceSeven = Vector3.Distance(gameCamera.transform.position, _stackBuilder7th.transform.position);
+        float distanceEight = Vector3.Distance(gameCamera.transform.position, _stackBuilder8th.transform.position);
+
+        if(distanceSix< distanceSeven && distanceSix < distanceEight)
+        {
+            return _stackBuilder6th;
+        }
+        else if(distanceSeven < distanceSix && distanceSeven < distanceEight)
+        {
+            return _stackBuilder7th;
+        }
+        else { return _stackBuilder8th; }
     }
 
     public JengaStackBuilder getGrade(Grade grade)
@@ -195,7 +245,14 @@ public class GameManager : MonoBehaviour
 
     public void RemoveGlasssBlock()
     {
-        getGrade(currentGradeSelected).RemoveGlassBlock();
+        if(currentGradeSelected == Grade.none)
+        {
+            getGrade(Grade.grade6).RemoveGlassBlock();
+            getGrade(Grade.grade7).RemoveGlassBlock();
+            getGrade(Grade.grade8).RemoveGlassBlock();
+        }
+        else
+            getGrade(currentGradeSelected).RemoveGlassBlock();
     }
 
     public void RebuildStacks()

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -51,6 +53,16 @@ public class JSONReader
             }
             //Debug.Log(JSONReader.Instance.allCourseItem.listOfEighthGrade.Count);
         }
+        sortList(allCourseInJson.listOfSixthGrade);
+        sortList(allCourseInJson.listOfSeventhGrade);
+        sortList(allCourseInJson.listOfEighthGrade);
+    }
+
+    private void sortList(List<CourseItem> listOfCourseItem)
+    {
+        listOfCourseItem = listOfCourseItem.OrderBy(d => d.domain).ToList();
+        listOfCourseItem = listOfCourseItem.OrderBy(d => d.cluster).ToList();
+        listOfCourseItem = listOfCourseItem.OrderBy(d => d.standardid).ToList();
     }
 }
 
